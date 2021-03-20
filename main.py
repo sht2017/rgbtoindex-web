@@ -22,10 +22,10 @@ def index():
         except:
             pass
         bmpName=originalName.replace("."+originalName.split(".")[-1],"")+".bmp"
-        print(bmpName)
         file.save(originalName)
         Image.open(originalName).convert('P').save(bmpName)
-        os.remove(originalName)
+        if originalName!=bmpName:
+            os.remove(originalName)
         return redirect(url_for('download'))
     
     return resp
