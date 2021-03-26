@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, make_response, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
-from PIL import Image
+#from PIL import Image #old
+from magapi import * #new
 from random import random
 import os,base64
 app = Flask(__name__)
@@ -23,7 +24,8 @@ def index():
             pass
         bmpName=originalName.replace("."+originalName.split(".")[-1],"")+".bmp"
         file.save(originalName)
-        Image.open(originalName).convert('P').save(bmpName)
+        #Image.open(originalName).convert('P').save(bmpName) #old
+        magick(originalName,bmpName).process()
         if originalName!=bmpName:
             os.remove(originalName)
         return redirect(url_for('download'))
