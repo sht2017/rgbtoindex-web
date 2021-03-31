@@ -12,22 +12,32 @@ def index():
     resp=make_response(render_template("index.html"))
     resp.set_cookie('uuid',str(base64.b64encode(str(random()).encode('utf-8'))).split("'")[1])
     if request.method == 'POST':
-        file=request.files['file']
-        fullname=secure_filename(file.filename)
-        originalName=app.root_path.replace("\\","/")+"/tmp/"+\
-                fullname.replace("."+fullname.split(".")[-1],"")+"."+\
-                request.cookies.get('uuid')[:-2]+\
-                "."+fullname.split(".")[-1]
         try:
-            os.remove(bmpName)
+            file=request.files['file']
+            fullname=secure_filename(file.filename)
+            originalName=app.root_path.replace("\\","/")+"/tmp/"+\
+                    fullname.replace("."+fullname.split(".")[-1],"")+"."+\
+                    request.cookies.get('uuid')[:-2]+\
+                    "."+fullname.split(".")[-1]
+            try:
+                os.remove(bmpName)
+            except:
+                pass
+            bmpName=originalName.replace("."+originalName.split(".")[-1],"")+".bmp"
+            file.save(originalName)
+            #Image.open(originalName).convert('P').save(bmpName) #old
+            magick(originalName,bmpName).convert()
+            if originalName!=bmpName:
+                os.remove(originalName)
         except:
-            pass
-        bmpName=originalName.replace("."+originalName.split(".")[-1],"")+".bmp"
-        file.save(originalName)
-        #Image.open(originalName).convert('P').save(bmpName) #old
-        magick(originalName,bmpName).process()
-        if originalName!=bmpName:
-            os.remove(originalName)
+            try:
+                os.remove(bmpName)
+            except:
+                pass
+            originalName=app.root_path.replace("\\","/")+"/tmp/"+"example.bmp"
+            bmpName=originalName.replace("example.bmp","example."+request.cookies.get('uuid')[:-2]+".bmp")
+            magick(originalName,bmpName).resize(request.form['x'],request.form['y'])
+            
         return redirect(url_for('download'))
     
     return resp
@@ -41,7 +51,6 @@ def download():
     resp.headers["Content-Disposition"]="attachment; filename="+bmpName.split("/")[-1]+";"
     return resp
 
-
 if __name__ == '__main__':
-    app.debug = False
+    app.debug = True
     app.run(host='0.0.0.0',port=80)

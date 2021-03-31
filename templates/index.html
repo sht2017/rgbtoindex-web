@@ -1,57 +1,116 @@
-
 <head>
-<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
-<link rel="stylesheet" href="/static/material.min.css">
-<script src="/static/material.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <meta name="viewport"
+        content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+    <link rel="stylesheet" href="/static/material.min.css">
+    <script src="/static/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
 <body>
 
+    <div style="height: 2.5vw;"></div>
+
     <!-- Wide card with share menu button -->
     <style>
         .demo-card-wide.mdl-card {
-        width: 512px;
+            width: 95vw;
+            border-radius:25px;
         }
-        .demo-card-wide > .mdl-card__title {
-        color: #fff;
-        height: 300px;
-        background: url('/static/title.png') center / cover;
+
+        .demo-card-wide>.mdl-card__title {
+            color: #fff;
+            height: 300px;
+            background: url('/static/title.png') center / cover;
         }
-        .demo-card-wide > .mdl-card__menu {
-        color: #fff;
+
+        .demo-card-wide>.mdl-card__menu {
+            color: #fff;
         }
     </style>
-    
     <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="margin-left:auto ; margin-right: auto;">
-      <div class="mdl-card__title">
-        <h2 class="mdl-card__title-text">RGB To Indexed Color</h2>
-      </div>
-      <div class="mdl-card__supporting-text">
-        For MicarHKDar(时子) by Stonty
-      </div>
-      <div class="mdl-card__actions mdl-card--border">
-        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="upload">
-          upload image
-        </button>
-        <form method="POST" enctype="multipart/form-data" style="display: none;">
-            <input name="file" type="file" id="fileselector">
-            <input type="submit" id="submit" value="Upload">
-        </form>
-      </div>
-      <div class="mdl-card__menu">
-        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" onclick="window.open('https://github.com/sht2017')">
-          <i class="material-icons" >share</i>
-        </button>
-      </div>
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">RGB to Indexed Color</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            For MicarHKDar(时子) by Stonty
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="upload">
+                upload image
+            </button>
+            <form name="1" method="POST" enctype="multipart/form-data" style="display: none;">
+                <input name="file" type="file" id="fileselector">
+                <input type="submit" id="submit" value="Upload">
+            </form>
+        </div>
+        <div class="mdl-card__menu">
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+                onclick="window.open('https://github.com/sht2017')">
+                <i class="material-icons">share</i>
+            </button>
+        </div>
     </div>
-</body>
+    <script>
+        document.getElementById('upload').addEventListener('click', function () {
+            document.querySelector('#fileselector').click();
+        });
+        document.getElementById('fileselector').addEventListener('change', function () {
+            document.querySelector('#submit').click();
+            setTimeout("location.reload();",5000);
+        });
+    </script>
 
-<script>
-    document.getElementById('upload').addEventListener('click',function () {
-        document.querySelector('#fileselector').click();
-    });
-    document.getElementById('fileselector').addEventListener('change',function () {
-        document.querySelector('#submit').click();
-    });
-</script>
+    <div style="height: 2.5vw;"></div>
+
+    <style>
+        .demo-card-wide-1.mdl-card {
+            width: 95vw;
+            border-radius:25px;
+        }
+
+        .demo-card-wide-1>.mdl-card__title {
+            color: #fff;
+            height: 300px;
+            background: url('/static/title1.jpg') center / cover;
+        }
+
+        .demo-card-wide-1>.mdl-card__menu {
+            color: #fff;
+        }
+    </style>
+    <div class="demo-card-wide-1 mdl-card mdl-shadow--2dp" style="margin-left:auto ; margin-right: auto;">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Generate Black Indexed Image in Size</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            For MicarHKDar(时子) by Stonty
+        </div>
+        <div style="margin-left: 1em; margin-right: 1em;">
+            <form name="f2" method="POST" autocomplete="off">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 100%;">
+                    <input name="x" class="mdl-textfield__input" type="text" pattern="^[1-9]\d*$" id="sample4">
+                    <label class="mdl-textfield__label" for="sample4">X Size (px)</label>
+                    <span class="mdl-textfield__error">Input is not an positive integer!</span>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width: 100%;">
+                    <input name="y" class="mdl-textfield__input" type="text" pattern="^[1-9]\d*$" id="sample4">
+                    <label class="mdl-textfield__label" for="sample4">Y Size (px)</label>
+                    <span class="mdl-textfield__error">Input is not an positive integer!</span>
+                </div>
+            </form>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="document.f2.submit(); setTimeout('location.reload();',5000);">
+                Generate
+            </button>
+        </div>
+        <div class="mdl-card__menu">
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+                onclick="window.open('https://github.com/sht2017')">
+                <i class="material-icons">share</i>
+            </button>
+        </div>
+    </div>
+
+    <div style="height: 2.5vw;"></div>
+</body>
